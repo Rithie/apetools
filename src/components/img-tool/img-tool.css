@@ -1,0 +1,8 @@
+.platformBox{
+    width:300px; 
+    min-height:100px;
+    display:inline-block; 
+    border:1px solid gainsboro; 
+    box-shadow: #c0c0c0 2px 2px;
+    padding:1em;margin:1em;
+}
