@@ -9,9 +9,7 @@ For when it all seems like too much work.
 
 Generate your App Icons and Splashscreens in all the required sizes to get your app to market faster.
 
-Note: this is the client side JS port of Ape Tools (which was originally server-side C#). This app uses VueJS with TypeScript.
-
-If you are looking to contribute to development, all the magic happens in: https://github.com/webprofusion/apetools/blob/master/src/components/tools/tools.ts
+Note: this is the client side JS port of Ape Tools (which was originally server-side C#). This app uses Stencil: https://stenciljs.com/.
 
 
 ## Build Setup

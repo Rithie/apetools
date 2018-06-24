@@ -1,5 +1,6 @@
+import JSZip from 'jszip/dist/jszip';
 import * as fileSaver from 'file-saver';
-//import Pica from 'pica';
+import Pica from 'pica/dist/pica';
 import { setTimeout } from 'timers';
 
 import { Logger } from './Logger';
@@ -14,7 +15,7 @@ export class ResizeTool {
 
     msg: string = '';
     allPlatforms: Array<PlatformSpec> = null;
-    zipArchive: any;
+    zipArchive: JSZip;
     itemsProcessed: number = 0;
     isArchiveReady: boolean = false;
     isProcessing: boolean = false;
@@ -29,16 +30,16 @@ export class ResizeTool {
     splashImgData: ImageData = null;
     splashColourSample: RGBA = null;
 
-    pica:any;
-    //pica = new Pica();
+    pica:Pica;
 
-    contructor() {
+    constructor() {
         if (!this.logger) this.logger = new Logger();
 
         this.setupSpecs();
 
        //TODO: init JSzip  // prepare new zip for archive
-        //this.zipArchive = await import('./utils/create-zip-file');
+        this.zipArchive = new JSZip();
+        this.pica = new Pica();
     }
 
     setupSpecs() {
@@ -319,6 +320,7 @@ export class ResizeTool {
     }
 
     async process() {
+       
         this.msg = 'Processing..';
         this.logger.info('Begin processing..');
         this.isProcessing = true;

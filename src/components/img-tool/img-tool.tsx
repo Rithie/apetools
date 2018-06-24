@@ -12,22 +12,30 @@ export class ImgTool {
 
   componentWillLoad() {
     this.tool = new ResizeTool();
-   
+
   }
 
-  process() {
+  async process() {
 
-    //this.tool.init();
-    //this.allPlatforms = this.tool.allPlatforms;
+    await this.tool.process();
+
   }
 
   downloadZip() {
-    //this.tool.downloadZip();
+    this.tool.downloadZip();
   }
 
-   handleChange(type: string, event: Event) {
-     console.log("Selection changed:" + type + event);
-   }
+  handleChange(type: string, event: any) {
+    console.log("Selection changed:" + type + event);
+
+    if (type == "splash") {
+      this.tool.selectedSplashFile = event.target.files[0];
+    }
+
+    if (type == "icon") {
+      this.tool.selectedIconFile = event.target.files[0];
+    }
+  }
 
   render() {
     return [
@@ -79,7 +87,17 @@ export class ImgTool {
                 </div>
 
               </div>
-{ /*
+              <div>
+                <h4>3. Where the magic happens</h4>
+
+                <p>
+                  Ready to Punch It?
+ <ion-button type="button" onClick={() => this.process()}>
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i> Kapow!</ion-button>
+                </p>
+
+              </div>
+              { /*
               <div v-if="selectedIconFile || selectedSplashFile">
 
                 <h4>3. Where the magic happens</h4>
@@ -126,15 +144,15 @@ export class ImgTool {
             </div>
             */}
 
-            <div class="well well-sm">
-              <p> We'd really appreciate it if you could tell others about this app:
+              <div class="well well-sm">
+                <p> We'd really appreciate it if you could tell others about this app:
                 <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://apetools.webprofusion.com" data-text="Check out Ape Tools, the quick way to generate all the icons and splash screens for your app:"
-                  data-via="webprofusion">Share</a>
-              </p>
-              <p>If you like this tool you can help by sharing it with others</p>
+                    data-via="webprofusion">Share</a>
+                </p>
+                <p>If you like this tool you can help by sharing it with others</p>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </ion-content>
     ];
