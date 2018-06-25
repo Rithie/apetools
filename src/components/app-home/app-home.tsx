@@ -14,17 +14,31 @@ export class AppHome {
       </ion-header>,
       <ion-content padding>
 
-        <h1>Ape Tools</h1>
-        <h2>Don't Go Ape, Go Ape Tools.</h2>
-        <img src="assets/img/logo.png" class="rounded-circle ape" />
+
+
+<ion-card >
+  <ion-card-header>
+    Ape Tools
+  </ion-card-header>
+  <ion-card-content>
+  
+  <img src="assets/img/logo.png" class="ape" />
+   
+    <h2>Don't Go Ape, Go Ape Tools.</h2>
+              <p>Get apps done quicker.
               
-        <p>Get apps done quicker.
-        
-        Create all the required sizes of Icons and Splashscreens for your app instantly for all major platforms.
-</p>
+              Create all the required sizes of Icons and Splashscreens for your app instantly for all major platforms.
 
-
+              <p>
         <ion-button href="/tools/imagegorilla/">Generate Your Icons &amp; Splashscreens</ion-button>
+        </p>
+      </p>
+  </ion-card-content>
+</ion-card>
+      
+      
+
+
 
         <footer>
           <p>

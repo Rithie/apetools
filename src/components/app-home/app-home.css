@@ -1,6 +1,7 @@
 
 .ape {
     float:left;
+    max-width: 300px;
 }
 .ape:hover {
     animation: shake 0.8s cubic-bezier(.36,.07,.19,.97) both infinite;

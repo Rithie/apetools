@@ -30,14 +30,14 @@ export class ResizeTool {
     splashImgData: ImageData = null;
     splashColourSample: RGBA = null;
 
-    pica:Pica;
+    pica: Pica;
 
     constructor() {
         if (!this.logger) this.logger = new Logger();
 
         this.setupSpecs();
 
-       //TODO: init JSzip  // prepare new zip for archive
+        //TODO: init JSzip  // prepare new zip for archive
         this.zipArchive = new JSZip();
         this.pica = new Pica();
     }
@@ -50,15 +50,15 @@ export class ResizeTool {
         this.allPlatforms.push(WindowsUWP);
     }
 
-    selectionChanged(imageType: string, e: any) {
+    selectionChanged(imageType: string, file: any) {
         // icon/splash changed
 
         if (imageType === 'splash') {
-            this.selectedSplashFile = e.target.files[0];
+            this.selectedSplashFile = file;
         }
 
         if (imageType === 'icon') {
-            this.selectedIconFile = e.target.files[0];
+            this.selectedIconFile = file;
         }
     }
 
@@ -319,10 +319,13 @@ export class ResizeTool {
 
     }
 
-    async process() {
-       
+    async process(reportProgress: (msg: string, percentageProcessed: number) => any) {
+
         this.msg = 'Processing..';
         this.logger.info('Begin processing..');
+
+        reportProgress(this.msg, 0);
+
         this.isProcessing = true;
         this.isArchiveReady = false;
         let numTasks = 0;
@@ -398,7 +401,10 @@ export class ResizeTool {
                                                 this.itemsProcessed++;
 
                                                 this.processingProgress = Math.round(this.itemsProcessed / this.totalTasks * 100);
-                                                this.msg = 'Processing ' + this.processingProgress + '%';
+                                                this.msg = 'Processing Item ' + this.itemsProcessed + ' of ' + this.totalTasks;
+
+                                                reportProgress(this.msg, this.processingProgress);
+
                                                 this.logger.info(this.msg);
                                                 if (this.processingProgress === 100) {
                                                     this.isArchiveReady = true;

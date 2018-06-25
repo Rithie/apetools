@@ -1,4 +1,4 @@
-import { Component, State } from '@stencil/core';
+import { Component,  State } from '@stencil/core';
 import { ResizeTool } from '../../core/ResizeTool';
 //import { PlatformSpec } from '../../core/Models';
 
@@ -9,16 +9,33 @@ import { ResizeTool } from '../../core/ResizeTool';
 export class ImgTool {
 
   @State() tool: ResizeTool;
+  @State() isProcessing: boolean;
+  @State() isCompleted: boolean;
+  @State() progressMessage: string;
+  @State() itemsProcessed: number;
+  @State() percentageProcessed: number;
 
   componentWillLoad() {
     this.tool = new ResizeTool();
 
+    this.isCompleted = false;
+    this.isProcessing = false;
   }
 
   async process() {
 
-    await this.tool.process();
+    this.isProcessing = true;
+    this.isCompleted = false;
 
+    await this.tool.process((msg, percentageProcessed) => this.reportProgress(msg, percentageProcessed));
+
+    this.isProcessing = false;
+    this.isCompleted = true;
+  }
+
+  reportProgress(msg: string, percentageProcessed: number) {
+    this.percentageProcessed = percentageProcessed;
+    this.progressMessage = msg;
   }
 
   downloadZip() {
@@ -26,15 +43,8 @@ export class ImgTool {
   }
 
   handleChange(type: string, event: any) {
-    console.log("Selection changed:" + type + event);
 
-    if (type == "splash") {
-      this.tool.selectedSplashFile = event.target.files[0];
-    }
-
-    if (type == "icon") {
-      this.tool.selectedIconFile = event.target.files[0];
-    }
+    this.tool.selectionChanged(type, event.target.files[0]);
   }
 
   render() {
@@ -44,13 +54,13 @@ export class ImgTool {
           <ion-buttons slot="start">
             <ion-back-button defaultHref="/" />
           </ion-buttons>
-          <ion-title> Tool</ion-title>
+          <ion-title> Ape Tools - Image Gorilla</ion-title>
         </ion-toolbar>
       </ion-header>,
       <ion-content padding>
 
         <div>
-          <h2> Tool</h2>
+          
           <div>
             <p class="lead">Tired of creating all your icons and splashscreen sizes manually? You've come to the right place.</p>
             <p>Upload your Icons and/or Splashscreen and we'll do all the hard work to create the sizes you need for each platform:</p>
@@ -97,6 +107,20 @@ export class ImgTool {
                 </p>
 
               </div>
+
+              <div>
+                {this.progressMessage} {this.percentageProcessed}%
+                <div class="progressBar" ></div>
+                </div>
+
+              {this.isCompleted
+                ?
+                <div>
+                  <ion-button onClick={() => this.downloadZip()}>Download Zip</ion-button>
+
+                </div>
+                : ""
+              }
               { /*
               <div v-if="selectedIconFile || selectedSplashFile">
 
