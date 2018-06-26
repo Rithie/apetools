@@ -3,11 +3,10 @@ import { ResizeTool } from '../../core/ResizeTool';
 //import { PlatformSpec } from '../../core/Models';
 
 @Component({
-  tag: 'img-tool',
-  styleUrl: 'img-tool.css'
+  tag: "img-tool",
+  styleUrl: "img-tool.css"
 })
 export class ImgTool {
-
   @State() tool: ResizeTool;
   @State() isProcessing: boolean;
   @State() isCompleted: boolean;
@@ -23,11 +22,12 @@ export class ImgTool {
   }
 
   async process() {
-
     this.isProcessing = true;
     this.isCompleted = false;
 
-    await this.tool.process((msg, percentageProcessed) => this.reportProgress(msg, percentageProcessed));
+    await this.tool.process((msg, percentageProcessed) =>
+      this.reportProgress(msg, percentageProcessed)
+    );
 
     this.isProcessing = false;
     this.isCompleted = true;
@@ -43,7 +43,6 @@ export class ImgTool {
   }
 
   handleChange(type: string, event: any) {
-
     this.tool.selectionChanged(type, event.target.files[0]);
   }
 
@@ -113,7 +112,13 @@ export class ImgTool {
   </ion-card-header>
                     <ion-card-content>
                       <div class="input-group file-upload">
-                        <input type="file" accept="image/*" id="fileupload-splash" onInput={(event) => this.handleChange('splash', event)} name="FileUploadSplash" />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          id="fileupload-splash"
+                          onInput={event => this.handleChange("splash", event)}
+                          name="FileUploadSplash"
+                        />
                       </div>
                       <p>Select a Splashscreen image in PNG format (no transparency) measuring at least 2048x2048 pixels with the
                             important stuff centred, we'll then resize from the centre outwards, sampling the top left corner colour as background.</p>
