@@ -58,27 +58,7 @@ export class ImgTool {
       </ion-header>,
       <ion-content padding>
 
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              1 of 2
-    </ion-col>
-            <ion-col>
-              2 of 2
-    </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              1 of 3
-    </ion-col>
-            <ion-col>
-              2 of 3
-    </ion-col>
-            <ion-col>
-              3 of 3
-    </ion-col>
-          </ion-row>
-        </ion-grid>
+
         <div>
 
           <div>
